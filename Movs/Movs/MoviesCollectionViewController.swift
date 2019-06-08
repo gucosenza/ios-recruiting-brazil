@@ -85,8 +85,8 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         collectionView.backgroundView = movieApiManager.movies.count == 0 ? noResultsLabel : nil
-//        return movieApiManager.movies.count
-        return 1
+        return movieApiManager.movies.count
+//        return 1
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

@@ -38,7 +38,9 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        self.view.backgroundColor = .white
+        self.view.backgroundColor = .white
+        
+        navigationController!.navigationBar.tintColor = .black
         
         backdrop = UIImageView()
         backdrop.image = imageManager.backdropImage(backdropPath: movie.backdrop_path)

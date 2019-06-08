@@ -25,6 +25,8 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
     
     init() {
         let layout = UICollectionViewFlowLayout()
+        layout.minimumInteritemSpacing = 10
+        layout.minimumLineSpacing = 10
         super.init(collectionViewLayout: layout)
     }
     
@@ -83,13 +85,22 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         collectionView.backgroundView = movieApiManager.movies.count == 0 ? noResultsLabel : nil
-        return movieApiManager.movies.count
+//        return movieApiManager.movies.count
+        return 1
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! MovieCollectionViewCell
         cell.configure(movie: movieApiManager.movies[indexPath.row],favorite: favoriteIds.contains(movieApiManager.movies[indexPath.row].id))
         return cell
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if let index = collectionView.indexPathsForSelectedItems?.first {
+            let detailController = DetailViewController(movie: movieApiManager.movies[index.row], isFavorite: favoriteIds.contains(movieApiManager.movies[index.row].id))
+            self.navigationController?.pushViewController(detailController, animated: true)
+        }
     }
 
     // MARK: UICollectionViewDelegate
@@ -101,12 +112,17 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
     }
     */
 
-    /*
+    
     // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
+//    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+//        let detailController = DetailViewController()
+//        if let index = collectionView.indexPathsForSelectedItems?.first {
+//            detailController.movie = movieApiManager.movies[indexPath.row]
+//            detailController.isFavorite = favoriteIds.contains(movieApiManager.movies[index.row].id)
+//        }
+//        return true
+//    }
+ 
 
     /*
     // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item

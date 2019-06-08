@@ -25,8 +25,20 @@ class DetailViewController: UIViewController {
     var imageManager = ImageManager.shared
     var genreManager = GenreManager.shared
     
+    init(movie: Movie, isFavorite: Bool ) {
+        self.movie = movie
+        self.isFavorite = isFavorite
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        self.view.backgroundColor = .white
         
         backdrop = UIImageView()
         backdrop.image = imageManager.backdropImage(backdropPath: movie.backdrop_path)

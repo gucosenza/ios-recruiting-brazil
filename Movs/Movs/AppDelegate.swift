@@ -17,9 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-//        let flowLayout = UICollectionViewFlowLayout()
-//        let customCollectionViewController = UICollectionViewController(collectionViewLayout: flowLayout)
-        
         let window = UIWindow(frame: UIScreen.main.bounds)
         let controller = TabBarViewController()
         window.rootViewController = controller

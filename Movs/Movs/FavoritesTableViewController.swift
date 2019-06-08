@@ -46,11 +46,6 @@ class FavoritesTableViewController: UITableViewController {
 //            cell = UITableViewCell(style:.default, reuseIdentifier: self.cellID) as! FavoriteTableViewCell
 //        }
         cell.prepare(with: "Hello there! \(indexPath.row)")
-//        cell.titleLabel!.text = "Hello there! \(indexPath.row)"
-//        cell.textLabel!.textColor = .red
-//        cell.textLabel!.font = UIFont(name:"Helvetica-Bold", size:12.0)
-//        cell.textLabel?.textAlignment = .center
-//        cell.textLabel!.text = "Hello there! \(indexPath.row)"
         return cell
     }
 

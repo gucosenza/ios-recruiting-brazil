@@ -7,12 +7,21 @@
 //
 
 import UIKit
+import CoreData
 
 private let reuseIdentifier = "Cell"
 
 class MoviesCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
+    var restManager = RestManager.shared
+    var genreManager = GenreManager.shared
+    var movieApiManager = MovieApiManager.shared
+    
+    var fetchedResultController: NSFetchedResultsController<FavoritesCD>!
+    var favoriteIds = [Int]()
+    
     var noResultsLabel = UILabel()
+    
     
     init() {
         let layout = UICollectionViewFlowLayout()
@@ -43,7 +52,15 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
         // Register cell classes
         self.collectionView!.register(MovieCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
-        // Do any additional setup after loading the view.
+        loadFavorites()
+        movieApiManager.getMovieApi()
+        genreManager.getGenreApi()
+        self.collectionView.reloadData()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+//        loadFavorites()
+        self.collectionView.reloadData()
     }
 
     /*
@@ -65,22 +82,13 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-//        collectionView.backgroundView = movieApiManager.movies.count == 0 ? noResultsLabel : nil
-//        return movieApiManager.movies.count
-        
-        return 1
+        collectionView.backgroundView = movieApiManager.movies.count == 0 ? noResultsLabel : nil
+        return movieApiManager.movies.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! MovieCollectionViewCell
-//        cell.configure(movie: movieApiManager.movies[indexPath.row],favorite: favoriteIds.contains(movieApiManager.movies[indexPath.row].id))
-//        return cell
-        
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-        // Configure the cell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! MovieCollectionViewCell
+        cell.configure(movie: movieApiManager.movies[indexPath.row],favorite: favoriteIds.contains(movieApiManager.movies[indexPath.row].id))
         return cell
     }
 
@@ -114,5 +122,24 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
     
     }
     */
+    
+    func loadFavorites(){
+        let fetchRequest: NSFetchRequest<FavoritesCD> = FavoritesCD.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        fetchedResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedResultController.delegate = self as? NSFetchedResultsControllerDelegate
+        
+        do {
+            try fetchedResultController.performFetch()
+        } catch {
+            print(error.localizedDescription)
+        }
+        favoriteIds.removeAll()
+        for favorite in (fetchedResultController.fetchedObjects)! {
+            favoriteIds.append(Int(favorite.movieId))
+        }
+    }
 
 }

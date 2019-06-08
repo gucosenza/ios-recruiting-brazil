@@ -12,12 +12,17 @@ class TabBarViewController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        tabBar.backgroundColor = UIColor(named: "Color1")
+        tabBar.isTranslucent = false
+        tabBar.tintColor = .black
+        tabBar.barTintColor = UIColor(named: "Color1")
 
         let moviesCollectionViewController = MoviesCollectionViewController()
-        moviesCollectionViewController.tabBarItem = UITabBarItem(tabBarSystemItem: .downloads, tag: 0)
+        moviesCollectionViewController.tabBarItem = UITabBarItem(title: "Movies", image: UIImage(named: "list_icon"), tag: 0)
         
         let favoritesTableViewController = FavoritesTableViewController()
-        favoritesTableViewController.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
+        favoritesTableViewController.tabBarItem = UITabBarItem(title: "Favorites", image: UIImage(named: "favorite_empty_icon"), tag: 1)
         
         let viewControllerList = [ moviesCollectionViewController, favoritesTableViewController ]
         viewControllers = viewControllerList.map { UINavigationController(rootViewController: $0) }

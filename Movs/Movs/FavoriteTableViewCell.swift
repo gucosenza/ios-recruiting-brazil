@@ -10,6 +10,8 @@ import UIKit
 
 class FavoriteTableViewCell: UITableViewCell {
     
+    var imageManager = ImageManager.shared
+    
     private lazy var viewCell: UIView = {
         let view = UIView(frame: .zero)
         view.backgroundColor = .white
@@ -17,23 +19,40 @@ class FavoriteTableViewCell: UITableViewCell {
         return view
     }()
 
-    var posterImage: UIImageView!
-    var titleLabel: UILabel!
-    var yearLabel: UILabel!
-    var overviewLabel: UILabel!
+    private lazy var posterImage: UIImageView = {
+        let image = UIImageView()
+        image.contentMode = .scaleToFill
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
+    }()
     
-//    private lazy var monthYearLabel: UILabel = {
-//        let label = UILabel()
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        label.accessibilityIdentifier = "labelMonthTicket"
-//        label.textColor = UIColor(named: .grayDefault)
-//        label.font = UIFont(font: FontFamily.BrMalls.bold, size: 17)
-//        label.textAlignment = .left
-//        return label
-//    }()
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = UIColor(named: "Color2")
+        label.font = UIFont.boldSystemFont(ofSize: 19)
+        label.numberOfLines = 1
+        return label
+    }()
     
-    var imageManager = ImageManager.shared
-
+    private lazy var yearLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = UIColor(named: "Color2")
+        label.font = UIFont(name: "System", size: 17)
+        label.numberOfLines = 1
+        return label
+    }()
+    
+    private lazy var overviewLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = UIColor(named: "Color2")
+        label.font = UIFont(name: "System", size: 14)
+        label.numberOfLines = 0
+        return label
+    }()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -43,31 +62,10 @@ class FavoriteTableViewCell: UITableViewCell {
     }
     
     func prepare(with favorite:FavoritesCD) {
-        
-        posterImage = UIImageView()
         posterImage.image = imageManager.posterImage(poster_path: favorite.image!)
-        posterImage.contentMode = .scaleToFill
-        
-        
-        titleLabel = UILabel()
         titleLabel.text = favorite.name
-        titleLabel.textColor = UIColor(named: "Color2")
-//        titleLabel.font = UIFont(name: "System", size: 19)
-        //        textLabel!.font = UIFont(name:"Helvetica-Bold", size:12.0)
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 19)
-        titleLabel.numberOfLines = 1
-        
-        yearLabel = UILabel()
         yearLabel.text = favorite.year
-        yearLabel.textColor = UIColor(named: "Color2")
-        yearLabel.font = UIFont(name: "System", size: 17)
-        yearLabel.numberOfLines = 1
-        
-        overviewLabel = UILabel()
         overviewLabel.text = favorite.overview
-        overviewLabel.textColor = UIColor(named: "Color2")
-        overviewLabel.font = UIFont(name: "System", size: 14)
-        overviewLabel.numberOfLines = 0
         
         self.addSubview(viewCell)
         self.viewCell.addSubview(posterImage)

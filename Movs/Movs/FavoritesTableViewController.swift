@@ -7,46 +7,74 @@
 //
 
 import UIKit
+import CoreData
 
 class FavoritesTableViewController: UITableViewController {
     
+    var fetchedResultController: NSFetchedResultsController<FavoritesCD>!
+    var noResultsLabel = UILabel()
     
     let cellID = "Cell"
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = "Favorites"
+        
+        navigationController!.navigationBar.isTranslucent = false
+        navigationController!.navigationBar.barTintColor = UIColor(named: "Color1")
+        
         self.tableView.register(FavoriteTableViewCell.self, forCellReuseIdentifier: self.cellID)
+        self.tableView.separatorStyle = .none
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        noResultsLabel.text = "Você não possui favoritos"
+        noResultsLabel.textAlignment = .center
+        
+        loadFavorites()
+    }
+    
+    func loadFavorites() {
+        let fetchRequest: NSFetchRequest<FavoritesCD> = FavoritesCD.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        fetchedResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedResultController.delegate = self as NSFetchedResultsControllerDelegate
+        
+        do {
+            try fetchedResultController.performFetch()
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 
     // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 10
+        let count = fetchedResultController.fetchedObjects?.count ?? 0
+        tableView.backgroundView = count == 0 ? noResultsLabel : nil
+        return count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: self.cellID, for: indexPath) as! FavoriteTableViewCell
-        
-        
-//        if cell == nil {
-//            cell = UITableViewCell(style:.default, reuseIdentifier: self.cellID) as! FavoriteTableViewCell
-//        }
-        cell.prepare(with: "Hello there! \(indexPath.row)")
+
+        guard let favorite = fetchedResultController.fetchedObjects?[indexPath.row] else {
+            return cell
+        }
+        cell.prepare(with: favorite)
+//        cell.prepare(with: "Hello there! \(indexPath.row)")
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return "Unfavorite"
     }
 
     /*
@@ -68,6 +96,13 @@ class FavoritesTableViewController: UITableViewController {
         }    
     }
     */
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            guard let favorite = fetchedResultController.fetchedObjects?[indexPath.row] else {return}
+            context.delete(favorite)
+            print("deleta contexto")
+        }
+    }
 
     /*
     // Override to support rearranging the table view.
@@ -84,14 +119,20 @@ class FavoritesTableViewController: UITableViewController {
     }
     */
 
-    /*
-    // MARK: - Navigation
+}
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+
+extension FavoritesTableViewController: NSFetchedResultsControllerDelegate{
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        
+        switch type {
+        case .delete:
+            if let indexPath = indexPath{
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                print("deleta tableview")
+            }
+        default:
+            tableView.reloadData()
+        }
     }
-    */
-
 }

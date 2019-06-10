@@ -36,6 +36,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
         label.textColor = UIColor(named: "Color1")
         label.font = UIFont(name: "System", size: 17)
         label.numberOfLines = 1

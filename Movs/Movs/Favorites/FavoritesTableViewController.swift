@@ -27,11 +27,12 @@ class FavoritesTableViewController: UITableViewController {
         self.tableView.register(FavoriteTableViewCell.self, forCellReuseIdentifier: self.cellID)
         self.tableView.separatorStyle = .none
         
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+//        let button1 = UIBarButtonItem(image: UIImage(named: "FilterIcon"), style: .plain, target: self, action: Selector("action"))
+        let filterButton = UIBarButtonItem(image: UIImage(named: "FilterIcon"), style: .plain, target: nil, action: nil)
+        filterButton.tintColor = .black
+        self.navigationItem.rightBarButtonItem  = filterButton
+//        self.navigationItem.rightBarButtonItem = self.editButtonItem
         
         noResultsLabel.text = "Você não possui favoritos"
         noResultsLabel.textAlignment = .center
@@ -69,7 +70,6 @@ class FavoritesTableViewController: UITableViewController {
             return cell
         }
         cell.prepare(with: favorite)
-//        cell.prepare(with: "Hello there! \(indexPath.row)")
         return cell
     }
     
@@ -77,48 +77,18 @@ class FavoritesTableViewController: UITableViewController {
         return "Unfavorite"
     }
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             guard let favorite = fetchedResultController.fetchedObjects?[indexPath.row] else {return}
-            context.delete(favorite)
-            print("deleta contexto")
+            do {
+                try context.delete(favorite)
+                print("deleta contexto")
+            } catch {
+                print(error.localizedDescription)
+            }
+            
         }
     }
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
 }
 
 

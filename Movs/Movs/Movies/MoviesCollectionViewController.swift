@@ -53,9 +53,6 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
         navigationController!.navigationBar.barTintColor = UIColor(named: "Color1")
         navigationItem.searchController = UISearchController(searchResultsController: nil)
         navigationItem.hidesSearchBarWhenScrolling = false
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
         self.collectionView!.register(MovieCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
@@ -75,7 +72,6 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         collectionView.backgroundView = movieApiManager.movies.count == 0 ? noResultsLabel : nil
         return movieApiManager.movies.count
-//        return 1
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -91,42 +87,6 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
             self.navigationController?.pushViewController(detailController, animated: true)
         }
     }
-
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    
-    // Uncomment this method to specify if the specified item should be selected
-//    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-//        let detailController = DetailViewController()
-//        if let index = collectionView.indexPathsForSelectedItems?.first {
-//            detailController.movie = movieApiManager.movies[indexPath.row]
-//            detailController.isFavorite = favoriteIds.contains(movieApiManager.movies[index.row].id)
-//        }
-//        return true
-//    }
- 
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-    
-    }
-    */
     
     func loadFavorites(){
         let fetchRequest: NSFetchRequest<FavoritesCD> = FavoritesCD.fetchRequest()

@@ -16,17 +16,22 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
     var restManager = RestManager.shared
     var genreManager = GenreManager.shared
     var movieApiManager = MovieApiManager.shared
-    
     var fetchedResultController: NSFetchedResultsController<FavoritesCD>!
+    
     var favoriteIds = [Int]()
-    
     var noResultsLabel = UILabel()
-    
     
     init() {
         let layout = UICollectionViewFlowLayout()
+        layout.itemSize.height = 308
+        layout.itemSize.width = 185
         layout.minimumInteritemSpacing = 10
         layout.minimumLineSpacing = 10
+        layout.scrollDirection = .vertical
+        layout.sectionInset.bottom = 15
+        layout.sectionInset.left = 15
+        layout.sectionInset.right = 15
+        layout.sectionInset.top = 15
         super.init(collectionViewLayout: layout)
     }
     
@@ -36,6 +41,7 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         noResultsLabel.text = "Não existe filme para ser exibido"
         noResultsLabel.textAlignment = .center
@@ -61,28 +67,11 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
     }
     
     override func viewDidAppear(_ animated: Bool) {
-//        loadFavorites()
+        loadFavorites()
         self.collectionView.reloadData()
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-
     // MARK: UICollectionViewDataSource
-
-//    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-//        // #warning Incomplete implementation, return the number of sections
-//        return 0
-//    }
-
-
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         collectionView.backgroundView = movieApiManager.movies.count == 0 ? noResultsLabel : nil
         return movieApiManager.movies.count

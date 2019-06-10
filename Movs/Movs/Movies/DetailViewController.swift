@@ -12,18 +12,59 @@ import CoreData
 
 class DetailViewController: UIViewController {
     
-    var backdrop: UIImageView!
-    var titleLabel: UILabel!
-    var favoriteButton: UIButton!
-    var yearLabel: UILabel!
-    var genreLabel: UILabel!
-    var overviewTextView: UITextView!
-    var isFavorite: Bool!
-    
     var movie: Movie!
     var favorite: FavoritesCD!
     var imageManager = ImageManager.shared
     var genreManager = GenreManager.shared
+    var isFavorite: Bool!
+    
+    private lazy var backdrop: UIImageView = {
+        let image = UIImageView()
+        image.contentMode = .scaleAspectFit
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
+    }()
+    
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .black
+        label.font = UIFont(name: "System", size: 24)
+        label.numberOfLines = 0
+        return label
+    }()
+
+    private lazy var favoriteButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var yearLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .black
+        label.font = UIFont(name: "System", size: 24)
+        return label
+    }()
+    
+    private lazy var genreLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .black
+        label.font = UIFont(name: "System", size: 24)
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    private lazy var overviewTextView: UITextView = {
+        let overview = UITextView()
+        overview.translatesAutoresizingMaskIntoConstraints = false
+        overview.font = UIFont.systemFont(ofSize: 17)
+        overview.textColor = .black
+        return overview
+    }()
     
     init(movie: Movie, isFavorite: Bool ) {
         self.movie = movie
@@ -38,43 +79,20 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = "Movie"
         self.view.backgroundColor = .white
-        
         navigationController!.navigationBar.tintColor = .black
         
-        backdrop = UIImageView()
         backdrop.image = imageManager.backdropImage(backdropPath: movie.backdrop_path)
-        backdrop.contentMode = .scaleAspectFit
-        
-        titleLabel = UILabel()
         titleLabel.text = movie.title
-        titleLabel.textColor = .black
-        titleLabel.font = UIFont(name: "System", size: 24)
-        titleLabel.numberOfLines = 0
-        
-        favoriteButton = UIButton(type: .system)
         if isFavorite == true {
             favoriteButton.setBackgroundImage(UIImage(named: "favorite_full_icon") as UIImage?, for: .normal)
         } else {
             favoriteButton.setBackgroundImage(UIImage(named: "favorite_empty_icon") as UIImage?, for: .normal)
         }
-        favoriteButton.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
-        
-        yearLabel = UILabel()
         yearLabel.text = String(movie.release_date.dropLast(6))
-        yearLabel.textColor = .black
-        yearLabel.font = UIFont(name: "System", size: 24)
-        
-        genreLabel = UILabel()
         genreLabel.text = genreManager.getGenres(ids: movie.genre_ids)
-        genreLabel.textColor = .black
-        genreLabel.font = UIFont(name: "System", size: 24)
-        genreLabel.numberOfLines = 0
-        
-        overviewTextView = UITextView()
         overviewTextView.text = movie.overview
-        overviewTextView.font = UIFont.systemFont(ofSize: 17)
-        overviewTextView.textColor = .black
         
         view.addSubview(titleLabel)
         view.addSubview(backdrop)
@@ -113,7 +131,6 @@ class DetailViewController: UIViewController {
     }
     
     func backdropConstraint(){
-        backdrop.translatesAutoresizingMaskIntoConstraints = false
         backdrop.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor).isActive = true
         backdrop.heightAnchor.constraint(equalToConstant: 210).isActive = true
         backdrop.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
@@ -122,14 +139,12 @@ class DetailViewController: UIViewController {
     }
     
     func labelConstraint(){
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.topAnchor.constraint(equalTo: backdrop.bottomAnchor, constant: 15).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -5).isActive = true //direita
         titleLabel.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true //esquerda
     }
     
     func favoriteButtonConstraint() {
-        favoriteButton.translatesAutoresizingMaskIntoConstraints = false
         favoriteButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
         favoriteButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
         favoriteButton.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
@@ -137,7 +152,6 @@ class DetailViewController: UIViewController {
     }
     
     func yearConstraint() {
-        yearLabel.translatesAutoresizingMaskIntoConstraints = false
         yearLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
         yearLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 15).isActive = true
         yearLabel.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true //esquerda
@@ -145,14 +159,12 @@ class DetailViewController: UIViewController {
     }
     
     func genreConstraint() {
-        genreLabel.translatesAutoresizingMaskIntoConstraints = false
         genreLabel.topAnchor.constraint(equalTo: yearLabel.bottomAnchor, constant: 15).isActive = true
         genreLabel.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true //esquerda
         genreLabel.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true //direita
     }
     
     func overviewConstraint(){
-        overviewTextView.translatesAutoresizingMaskIntoConstraints = false
         overviewTextView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true //esquerda
         overviewTextView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true //direita
         overviewTextView.topAnchor.constraint(equalTo: genreLabel.bottomAnchor, constant: 15).isActive = true

@@ -21,18 +21,20 @@ class FavoritesTableViewController: UITableViewController {
         
         self.title = "Favorites"
         
-        navigationController!.navigationBar.isTranslucent = false
-        navigationController!.navigationBar.barTintColor = UIColor(named: "Color1")
-        
         self.tableView.register(FavoriteTableViewCell.self, forCellReuseIdentifier: self.cellID)
         self.tableView.separatorStyle = .none
         
+        navigationController!.navigationBar.isTranslucent = false
+        navigationController!.navigationBar.barTintColor = UIColor(named: "Color1")
+        navigationItem.searchController = UISearchController(searchResultsController: nil)
+        navigationItem.hidesSearchBarWhenScrolling = false
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
 //        let button1 = UIBarButtonItem(image: UIImage(named: "FilterIcon"), style: .plain, target: self, action: Selector("action"))
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addTapped))
         let filterButton = UIBarButtonItem(image: UIImage(named: "FilterIcon"), style: .plain, target: nil, action: nil)
         filterButton.tintColor = .black
         self.navigationItem.rightBarButtonItem  = filterButton
-//        self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
         
         noResultsLabel.text = "Você não possui favoritos"
         noResultsLabel.textAlignment = .center

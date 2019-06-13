@@ -63,6 +63,10 @@ class DetailViewController: UIViewController {
         overview.translatesAutoresizingMaskIntoConstraints = false
         overview.font = UIFont.systemFont(ofSize: 17)
         overview.textColor = .black
+        
+//        aboutStable.editable = NO;
+        
+        overview.isEditable = false
         return overview
     }()
     

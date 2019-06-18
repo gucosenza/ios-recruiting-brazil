@@ -20,6 +20,8 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
     
     var favoriteIds = [Int]()
     var noResultsLabel = UILabel()
+    let searchController = UISearchController(searchResultsController: nil)
+    var filteredMovies = [ Movie ] ()
     
     init() {
         let layout = UICollectionViewFlowLayout()
@@ -51,7 +53,12 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
         
         navigationController!.navigationBar.isTranslucent = false
         navigationController!.navigationBar.barTintColor = UIColor(named: "Color1")
-        navigationItem.searchController = UISearchController(searchResultsController: nil)
+//        navigationItem.searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search Movie"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
         navigationItem.hidesSearchBarWhenScrolling = false
 
         // Register cell classes
@@ -70,21 +77,37 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
 
     // MARK: UICollectionViewDataSource
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        collectionView.backgroundView = movieApiManager.movies.count == 0 ? noResultsLabel : nil
-        return movieApiManager.movies.count
+        if isFiltering() {
+            return filteredMovies.count
+        }else{
+            collectionView.backgroundView = movieApiManager.movies.count == 0 ? noResultsLabel : nil
+            return movieApiManager.movies.count
+        }
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! MovieCollectionViewCell
-        cell.configure(movie: movieApiManager.movies[indexPath.row],favorite: favoriteIds.contains(movieApiManager.movies[indexPath.row].id))
+        
+        if isFiltering() {
+            cell.configure(movie: filteredMovies[indexPath.row],favorite: favoriteIds.contains(filteredMovies[indexPath.row].id))
+        } else {
+            cell.configure(movie: movieApiManager.movies[indexPath.row],favorite: favoriteIds.contains(movieApiManager.movies[indexPath.row].id))
+        }
+        
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        if let index = collectionView.indexPathsForSelectedItems?.first {
-            let detailController = DetailViewController(movie: movieApiManager.movies[index.row], isFavorite: favoriteIds.contains(movieApiManager.movies[index.row].id))
-            self.navigationController?.pushViewController(detailController, animated: true)
+        if isFiltering() {
+            if let index = collectionView.indexPathsForSelectedItems?.first {
+                let detailController = DetailViewController(movie: filteredMovies[index.row], isFavorite: favoriteIds.contains(filteredMovies[index.row].id))
+                self.navigationController?.pushViewController(detailController, animated: true)
+            }
+        } else {
+            if let index = collectionView.indexPathsForSelectedItems?.first {
+                let detailController = DetailViewController(movie: movieApiManager.movies[index.row], isFavorite: favoriteIds.contains(movieApiManager.movies[index.row].id))
+                self.navigationController?.pushViewController(detailController, animated: true)
+            }
         }
     }
     
@@ -106,5 +129,31 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
             favoriteIds.append(Int(favorite.movieId))
         }
     }
+    
+    // MARK: - Private instance methods
+    
+    func searchBarIsEmpty() -> Bool {
+        // Returns true if the text is empty or nil
+        return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+    func filterContentForSearchText(_ searchText: String, scope: String = "All") {
+        filteredMovies = movieApiManager.movies.filter({( movie : Movie) -> Bool in
+            return movie.title.lowercased().contains(searchText.lowercased())
+        })
+        
+        collectionView.reloadData()
+    }
+    
+    func isFiltering() -> Bool {
+        return searchController.isActive && !searchBarIsEmpty()
+    }
 
+}
+
+extension MoviesCollectionViewController: UISearchResultsUpdating {
+    // MARK: - UISearchResultsUpdating Delegate
+    func updateSearchResults(for searchController: UISearchController) {
+        filterContentForSearchText(searchController.searchBar.text!)
+    }
 }

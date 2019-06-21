@@ -63,9 +63,6 @@ class DetailViewController: UIViewController {
         overview.translatesAutoresizingMaskIntoConstraints = false
         overview.font = UIFont.systemFont(ofSize: 17)
         overview.textColor = .black
-        
-//        aboutStable.editable = NO;
-        
         overview.isEditable = false
         return overview
     }()
@@ -169,8 +166,8 @@ class DetailViewController: UIViewController {
     }
     
     func overviewConstraint(){
-        overviewTextView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true //esquerda
-        overviewTextView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true //direita
+        overviewTextView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
+        overviewTextView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
         overviewTextView.topAnchor.constraint(equalTo: genreLabel.bottomAnchor, constant: 15).isActive = true
         overviewTextView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -15).isActive = true
     }

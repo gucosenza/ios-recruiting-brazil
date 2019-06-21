@@ -28,9 +28,7 @@ class FavoritesTableViewController: UITableViewController {
         navigationController!.navigationBar.barTintColor = UIColor(named: "Color1")
         navigationItem.searchController = UISearchController(searchResultsController: nil)
         navigationItem.hidesSearchBarWhenScrolling = false
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-//        let button1 = UIBarButtonItem(image: UIImage(named: "FilterIcon"), style: .plain, target: self, action: Selector("action"))
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addTapped))
+        
         let filterButton = UIBarButtonItem(image: UIImage(named: "FilterIcon"), style: .plain, target: nil, action: nil)
         filterButton.tintColor = .black
         self.navigationItem.rightBarButtonItem  = filterButton
@@ -82,13 +80,7 @@ class FavoritesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             guard let favorite = fetchedResultController.fetchedObjects?[indexPath.row] else {return}
-            do {
-                try context.delete(favorite)
-                print("deleta contexto")
-            } catch {
-                print(error.localizedDescription)
-            }
-            
+            context.delete(favorite)
         }
     }
 }

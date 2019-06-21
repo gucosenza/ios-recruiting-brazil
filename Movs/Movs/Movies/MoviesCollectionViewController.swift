@@ -148,6 +148,18 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
     func isFiltering() -> Bool {
         return searchController.isActive && !searchBarIsEmpty()
     }
+    
+    
+    // MARK: - Scroll Infinito
+//    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//
+//        if indexPath.row == movieApiManager.movies.count - 10 && !movieApiManager.loadingMovies && movieApiManager.movies.count != movieApiManager.totalMovies{
+//            print("carrega mais")
+//            movieApiManager.getMovieApi()
+//            print(movieApiManager.movies.count)
+//            self.collectionView.reloadData()
+//        }
+//    }
 
 }
 

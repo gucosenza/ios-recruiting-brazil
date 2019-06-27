@@ -9,7 +9,7 @@
 
 import Foundation
 
-enum Error {
+enum RestError {
     case url
     case taskError (error: Error)
     case noResponse
@@ -42,7 +42,7 @@ final class RestManager {
     
     let session = URLSession(configuration: configuration)
     
-    func loadGenre(onComplete: @escaping (Dictionary<Int, String>) -> Void, onError: @escaping (Error) -> Void) {
+    func loadGenre(onComplete: @escaping (Dictionary<Int, String>) -> Void, onError: @escaping (RestError) -> Void) {
         
         let urlGenres = basePath + "/genre/movie/list?language=en-US&api_key=" + apiKey
         guard let url = URL(string: urlGenres ) else {
@@ -84,7 +84,7 @@ final class RestManager {
         dataTask.resume()
     }
     
-    func loadMovies(onComplete: @escaping (MoviesApi) -> Void, onError: @escaping (Error) -> Void, page: Int) {
+    func loadMovies(onComplete: @escaping (MoviesApi) -> Void, onError: @escaping (RestError) -> Void, page: Int) {
         
         let urlMovies = basePath + "/movie/popular?page=" + String(page) + "&language=en-US&api_key=" + apiKey
         

@@ -109,6 +109,7 @@ final class RestManager {
                         onComplete(moviesApi)
                         
                     }catch {
+                        print(error)
                         onError(.invalidJson)
                     }
                 }else {

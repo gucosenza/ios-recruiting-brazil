@@ -84,7 +84,7 @@ class DetailViewController: UIViewController {
         self.view.backgroundColor = .white
         navigationController!.navigationBar.tintColor = .black
         
-        backdrop.image = imageManager.backdropImage(backdropPath: movie.backdrop_path)
+        backdrop.image = imageManager.backdropImage(backdropPath: movie.backdrop_path ?? "semfoto")
         titleLabel.text = movie.title
         if isFavorite == true {
             favoriteButton.setBackgroundImage(UIImage(named: "favorite_full_icon") as UIImage?, for: .normal)

@@ -34,15 +34,17 @@ final class ImageManager {
     }
     
     func backdropImage(backdropPath: String) -> UIImage {
-        let url = URL(string: self.backdropPath + backdropPath)!
-        if let data = try? Data(contentsOf: url) {
-            if let image = UIImage(data: data) {
-                imageCache.setObject(image, forKey: backdropPath as AnyObject)
-                
-                if let imageFromCache = imageCache.object(forKey: backdropPath as AnyObject) as? UIImage {
-                    return imageFromCache
+        if backdropPath != "semfoto"{
+            let url = URL(string: self.backdropPath + backdropPath)!
+            if let data = try? Data(contentsOf: url) {
+                if let image = UIImage(data: data) {
+                    imageCache.setObject(image, forKey: backdropPath as AnyObject)
+                    
+                    if let imageFromCache = imageCache.object(forKey: backdropPath as AnyObject) as? UIImage {
+                        return imageFromCache
+                    }
+                    
                 }
-                
             }
         }
         return UIImage(named: "no-image-found-360x260.png")!

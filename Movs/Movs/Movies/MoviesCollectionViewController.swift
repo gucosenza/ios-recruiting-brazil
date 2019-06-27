@@ -15,13 +15,17 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
     
     var restManager = RestManager.shared
     var genreManager = GenreManager.shared
-    var movieApiManager = MovieApiManager.shared
     var fetchedResultController: NSFetchedResultsController<FavoritesCD>!
     
     var favoriteIds = [Int]()
     var noResultsLabel = UILabel()
     let searchController = UISearchController(searchResultsController: nil)
     var filteredMovies = [ Movie ] ()
+    
+    private var page = 1
+    var movies = [Movie]()
+    var totalMovies:Int = 0
+    var loadingMovies = false
     
     init() {
         let layout = UICollectionViewFlowLayout()
@@ -44,7 +48,6 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         noResultsLabel.text = "Não existe filme para ser exibido"
         noResultsLabel.textAlignment = .center
         
@@ -64,15 +67,47 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
         // Register cell classes
         self.collectionView!.register(MovieCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
-        loadFavorites()
-        movieApiManager.getMovieApi()
-        genreManager.getGenreApi()
-        self.collectionView.reloadData()
+        self.loadFavorites()
+        self.getMovieApi()
+        self.genreManager.getGenreApi()
+        
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
+    }
+    
+    func getMovieApi(){
+        let spinnerView = UIView.init(frame: self.view.bounds)
+        spinnerView.backgroundColor = UIColor.init(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
+        let ai = UIActivityIndicatorView.init(style: .whiteLarge)
+        ai.startAnimating()
+        ai.center = spinnerView.center
+        
+        spinnerView.addSubview(ai)
+        self.view.addSubview(spinnerView)
+        
+        loadingMovies = true
+        restManager.loadMovies(onComplete: { (moviesApi) in
+            self.totalMovies = moviesApi.total_results
+            for movie in moviesApi.results {
+                self.movies.append(movie)
+            }
+            self.page = self.page + 1
+            
+            DispatchQueue.main.async {
+                spinnerView.removeFromSuperview()
+            }
+        }, onError: { (error) in
+            print("Deu erro ao carregar os filmes")
+        }, page: page)
+        loadingMovies = false
     }
     
     override func viewDidAppear(_ animated: Bool) {
         loadFavorites()
-        self.collectionView.reloadData()
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
     }
 
     // MARK: UICollectionViewDataSource
@@ -80,8 +115,10 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
         if isFiltering() {
             return filteredMovies.count
         }else{
-            collectionView.backgroundView = movieApiManager.movies.count == 0 ? noResultsLabel : nil
-            return movieApiManager.movies.count
+//            collectionView.backgroundView = movieApiManager.movies.count == 0 ? noResultsLabel : nil
+//            return movieApiManager.movies.count
+            collectionView.backgroundView = movies.count == 0 ? noResultsLabel : nil
+            return movies.count
         }
     }
 
@@ -91,7 +128,8 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
         if isFiltering() {
             cell.configure(movie: filteredMovies[indexPath.row],favorite: favoriteIds.contains(filteredMovies[indexPath.row].id))
         } else {
-            cell.configure(movie: movieApiManager.movies[indexPath.row],favorite: favoriteIds.contains(movieApiManager.movies[indexPath.row].id))
+//            cell.configure(movie: movieApiManager.movies[indexPath.row],favorite: favoriteIds.contains(movieApiManager.movies[indexPath.row].id))
+            cell.configure(movie: movies[indexPath.row],favorite: favoriteIds.contains(movies[indexPath.row].id))
         }
         
         return cell
@@ -105,7 +143,8 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
             }
         } else {
             if let index = collectionView.indexPathsForSelectedItems?.first {
-                let detailController = DetailViewController(movie: movieApiManager.movies[index.row], isFavorite: favoriteIds.contains(movieApiManager.movies[index.row].id))
+//                let detailController = DetailViewController(movie: movieApiManager.movies[index.row], isFavorite: favoriteIds.contains(movieApiManager.movies[index.row].id))
+                let detailController = DetailViewController(movie: movies[index.row], isFavorite: favoriteIds.contains(movies[index.row].id))
                 self.navigationController?.pushViewController(detailController, animated: true)
             }
         }
@@ -138,7 +177,8 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
     }
     
     func filterContentForSearchText(_ searchText: String, scope: String = "All") {
-        filteredMovies = movieApiManager.movies.filter({( movie : Movie) -> Bool in
+//        filteredMovies = movieApiManager.movies.filter({( movie : Movie) -> Bool in
+        filteredMovies = movies.filter({( movie : Movie) -> Bool in
             return movie.title.lowercased().contains(searchText.lowercased())
         })
         

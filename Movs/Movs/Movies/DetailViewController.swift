@@ -14,7 +14,7 @@ class DetailViewController: UIViewController {
     
     var movie: Movie!
     var favorite: FavoritesCD!
-    var imageManager = ImageManager.shared
+    var imageManager = ImageManager()
     var genreManager = GenreManager.shared
     var isFavorite: Bool!
     

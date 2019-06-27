@@ -10,7 +10,7 @@ import UIKit
 
 class MovieCollectionViewCell: UICollectionViewCell {
     
-    var imageManager = ImageManager.shared
+    var imageManager = ImageManager()
     
     private lazy var viewCell: UIView = {
         let view = UIView(frame: .zero)

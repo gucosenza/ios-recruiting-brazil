@@ -10,11 +10,6 @@ import UIKit
 
 final class ImageManager {
     
-    static let shared = ImageManager()
-    
-    private init(){
-    }
-    
     let imageCache = NSCache<AnyObject, AnyObject>()
     private let posterPath = Config.posterPath
     private let backdropPath = Config.backdropPath

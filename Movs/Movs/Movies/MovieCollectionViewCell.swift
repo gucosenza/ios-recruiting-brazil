@@ -81,7 +81,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
         favoriteImage.widthAnchor.constraint(equalToConstant: 20).isActive = true
         favoriteImage.topAnchor.constraint(equalTo: posterImage.bottomAnchor, constant: 0).isActive = true
         favoriteImage.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 0).isActive = true //esquerda
-        favoriteImage.trailingAnchor.constraint(equalTo: self.viewCell.trailingAnchor, constant: 0).isActive = true //direita
+        favoriteImage.trailingAnchor.constraint(equalTo: self.viewCell.trailingAnchor, constant: -5).isActive = true //direita
         favoriteImage.bottomAnchor.constraint(equalTo: self.viewCell.bottomAnchor, constant: 0).isActive = true
     }
 }

@@ -19,6 +19,7 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
     
     var favoriteIds = [Int]()
     var noResultsLabel = UILabel()
+    var errorRestLabel = UILabel()
     let searchController = UISearchController(searchResultsController: nil)
     var filteredMovies = [ Movie ] ()
     
@@ -50,6 +51,8 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
         
         noResultsLabel.text = "Não existe filme para ser exibido"
         noResultsLabel.textAlignment = .center
+        errorRestLabel.text = "Nao foi possivel recuperar os filmes"
+        errorRestLabel.textAlignment = .center
         
         self.collectionView.backgroundColor = UIColor(named: "Color4")
         self.title = "Movies"
@@ -99,6 +102,10 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
             }
         }, onError: { (error) in
             print("Deu erro ao carregar os filmes")
+            DispatchQueue.main.async {
+                spinnerView.removeFromSuperview()
+                self.collectionView.backgroundView = self.errorRestLabel
+            }
         }, page: page)
         loadingMovies = false
     }
@@ -115,9 +122,7 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
         if isFiltering() {
             return filteredMovies.count
         }else{
-//            collectionView.backgroundView = movieApiManager.movies.count == 0 ? noResultsLabel : nil
-//            return movieApiManager.movies.count
-            collectionView.backgroundView = movies.count == 0 ? noResultsLabel : nil
+//            collectionView.backgroundView = movies.count == 0 ? noResultsLabel : nil
             return movies.count
         }
     }
@@ -128,7 +133,6 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
         if isFiltering() {
             cell.configure(movie: filteredMovies[indexPath.row],favorite: favoriteIds.contains(filteredMovies[indexPath.row].id))
         } else {
-//            cell.configure(movie: movieApiManager.movies[indexPath.row],favorite: favoriteIds.contains(movieApiManager.movies[indexPath.row].id))
             cell.configure(movie: movies[indexPath.row],favorite: favoriteIds.contains(movies[indexPath.row].id))
         }
         
@@ -143,7 +147,6 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
             }
         } else {
             if let index = collectionView.indexPathsForSelectedItems?.first {
-//                let detailController = DetailViewController(movie: movieApiManager.movies[index.row], isFavorite: favoriteIds.contains(movieApiManager.movies[index.row].id))
                 let detailController = DetailViewController(movie: movies[index.row], isFavorite: favoriteIds.contains(movies[index.row].id))
                 self.navigationController?.pushViewController(detailController, animated: true)
             }
@@ -177,7 +180,6 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
     }
     
     func filterContentForSearchText(_ searchText: String, scope: String = "All") {
-//        filteredMovies = movieApiManager.movies.filter({( movie : Movie) -> Bool in
         filteredMovies = movies.filter({( movie : Movie) -> Bool in
             return movie.title.lowercased().contains(searchText.lowercased())
         })

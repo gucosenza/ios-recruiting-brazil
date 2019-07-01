@@ -80,9 +80,7 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Movie"
-        self.view.backgroundColor = .white
-        navigationController!.navigationBar.tintColor = .black
+        setupViews()
         
         backdrop.image = imageManager.backdropImage(backdropPath: movie.backdrop_path ?? "semfoto")
         titleLabel.text = movie.title
@@ -95,19 +93,7 @@ class DetailViewController: UIViewController {
         genreLabel.text = genreManager.getGenres(ids: movie.genre_ids)
         overviewTextView.text = movie.overview
         
-        view.addSubview(titleLabel)
-        view.addSubview(backdrop)
-        view.addSubview(favoriteButton)
-        view.addSubview(yearLabel)
-        view.addSubview(genreLabel)
-        view.addSubview(overviewTextView)
-        
-        labelConstraint()
-        backdropConstraint()
-        favoriteButtonConstraint()
-        yearConstraint()
-        genreConstraint()
-        overviewConstraint()
+       
     }
     
     @objc func buttonClicked(sender : UIButton){
@@ -129,6 +115,34 @@ class DetailViewController: UIViewController {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+}
+
+
+extension DetailViewController: CodeView {
+    func buildViewHierarchy() {
+        view.addSubview(titleLabel)
+        view.addSubview(backdrop)
+        view.addSubview(favoriteButton)
+        view.addSubview(yearLabel)
+        view.addSubview(genreLabel)
+        view.addSubview(overviewTextView)
+    }
+    
+    func setupConstraints() {
+        labelConstraint()
+        backdropConstraint()
+        favoriteButtonConstraint()
+        yearConstraint()
+        genreConstraint()
+        overviewConstraint()
+    }
+    
+    func setupAdditionalConfiguration() {
+        self.title = "Movie"
+        self.view.backgroundColor = .white
+        navigationController!.navigationBar.tintColor = .black
     }
     
     func backdropConstraint(){
@@ -171,5 +185,4 @@ class DetailViewController: UIViewController {
         overviewTextView.topAnchor.constraint(equalTo: genreLabel.bottomAnchor, constant: 15).isActive = true
         overviewTextView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -15).isActive = true
     }
-    
 }

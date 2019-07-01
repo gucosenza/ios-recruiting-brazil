@@ -62,24 +62,31 @@ class FavoriteTableViewCell: UITableViewCell {
     }
     
     func prepare(with favorite:FavoritesCD) {
+        setupViews()
         posterImage.image = imageManager.posterImage(poster_path: favorite.image!)
         titleLabel.text = favorite.name
         yearLabel.text = favorite.year
         overviewLabel.text = favorite.overview
-        
+    }
+}
+
+extension FavoriteTableViewCell: CodeView {
+    func buildViewHierarchy() {
         self.addSubview(viewCell)
         self.viewCell.addSubview(posterImage)
         self.viewCell.addSubview(titleLabel)
         self.viewCell.addSubview(yearLabel)
         self.viewCell.addSubview(overviewLabel)
-        
+    }
+    
+    func setupConstraints() {
         cellConstraint()
         posterConstraint()
         titleConstraint()
         yearConstraint()
         overviewConstraint()
     }
-
+    
     func cellConstraint(){
         self.viewCell.heightAnchor.constraint(equalToConstant: 120).isActive = true
         self.viewCell.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive = true
@@ -114,5 +121,4 @@ class FavoriteTableViewCell: UITableViewCell {
         overviewLabel.trailingAnchor.constraint(equalTo: self.viewCell.trailingAnchor, constant: 0).isActive = true //direita
         overviewLabel.bottomAnchor.constraint(equalTo: self.viewCell.bottomAnchor, constant: 0).isActive = true
     }
-
 }

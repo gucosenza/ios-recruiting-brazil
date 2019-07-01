@@ -44,6 +44,8 @@ class MovieCollectionViewCell: UICollectionViewCell {
     }()
 
     func configure(movie: Movie, favorite: Bool) {
+        setupViews()
+        
         posterImage.image = imageManager.posterImage(poster_path: movie.poster_path)
         titleLabel.text = movie.title
         if favorite == true {
@@ -51,12 +53,18 @@ class MovieCollectionViewCell: UICollectionViewCell {
         } else{
             favoriteImage.image = UIImage(named: "favorite_gray_icon") as UIImage?
         }
-        
+    }
+}
+
+extension MovieCollectionViewCell: CodeView {
+    func buildViewHierarchy() {
         self.addSubview(viewCell)
         self.viewCell.addSubview(posterImage)
         self.viewCell.addSubview(titleLabel)
         self.viewCell.addSubview(favoriteImage)
-        
+    }
+    
+    func setupConstraints() {
         posterConstraint()
         titleConstraint()
         favoriteConstraint()
@@ -84,4 +92,5 @@ class MovieCollectionViewCell: UICollectionViewCell {
         favoriteImage.trailingAnchor.constraint(equalTo: self.viewCell.trailingAnchor, constant: -5).isActive = true //direita
         favoriteImage.bottomAnchor.constraint(equalTo: self.viewCell.bottomAnchor, constant: 0).isActive = true
     }
+    
 }

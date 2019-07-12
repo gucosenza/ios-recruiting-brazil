@@ -99,6 +99,7 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
             
             DispatchQueue.main.async {
                 spinnerView.removeFromSuperview()
+                self.collectionView.reloadData()
             }
         }, onError: { (error) in
             print("Deu erro ao carregar os filmes")

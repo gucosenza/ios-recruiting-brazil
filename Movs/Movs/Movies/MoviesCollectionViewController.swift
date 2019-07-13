@@ -120,7 +120,11 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
 
     // MARK: UICollectionViewDataSource
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if searchBarIsEmpty(){
+            collectionView.backgroundView = nil
+        }
         if isFiltering() {
+            collectionView.backgroundView = filteredMovies.count == 0 ? noResultsLabel : nil
             return filteredMovies.count
         }else{
 //            collectionView.backgroundView = movies.count == 0 ? noResultsLabel : nil
@@ -184,7 +188,6 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
         filteredMovies = movies.filter({( movie : Movie) -> Bool in
             return movie.title.lowercased().contains(searchText.lowercased())
         })
-        
         collectionView.reloadData()
     }
     

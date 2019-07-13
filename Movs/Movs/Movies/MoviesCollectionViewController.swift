@@ -91,7 +91,7 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
         
         loadingMovies = true
         restManager.loadMovies(onComplete: { (moviesApi) in
-            self.totalMovies = moviesApi.total_results
+            self.totalMovies = moviesApi.totalResults
             for movie in moviesApi.results {
                 self.movies.append(movie)
             }
@@ -111,7 +111,7 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
         loadingMovies = false
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         loadFavorites()
         DispatchQueue.main.async {
             self.collectionView.reloadData()

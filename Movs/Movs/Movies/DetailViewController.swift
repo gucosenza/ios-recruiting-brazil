@@ -82,15 +82,15 @@ class DetailViewController: UIViewController {
         
         setupViews()
         
-        backdrop.image = imageManager.backdropImage(backdropPath: movie.backdrop_path ?? "semfoto")
+        backdrop.image = imageManager.backdropImage(backdropPath: movie.backdropPath ?? "semfoto")
         titleLabel.text = movie.title
         if isFavorite == true {
             favoriteButton.setBackgroundImage(UIImage(named: "favorite_full_icon") as UIImage?, for: .normal)
         } else {
             favoriteButton.setBackgroundImage(UIImage(named: "favorite_empty_icon") as UIImage?, for: .normal)
         }
-        yearLabel.text = String(movie.release_date.dropLast(6))
-        genreLabel.text = genreManager.getGenres(ids: movie.genre_ids)
+        yearLabel.text = String(movie.releaseDate.dropLast(6))
+        genreLabel.text = genreManager.getGenres(ids: movie.genreIDS)
         overviewTextView.text = movie.overview
         
        
@@ -102,11 +102,10 @@ class DetailViewController: UIViewController {
                 favorite = FavoritesCD(context: context)
             }
             favorite.movieId = Int32(movie.id)
-            favorite.image = movie.poster_path
+            favorite.image = movie.posterPath
             favorite.name = movie.title
             favorite.overview = movie.overview
-            favorite.year = String(movie.release_date.dropLast(6))
-            
+            favorite.year = String(movie.releaseDate.dropLast(6))
             do {
                 try context.save()
                 let image = UIImage(named: "favorite_full_icon") as UIImage?
@@ -116,9 +115,7 @@ class DetailViewController: UIViewController {
             }
         }
     }
-    
 }
-
 
 extension DetailViewController: CodeView {
     func buildViewHierarchy() {

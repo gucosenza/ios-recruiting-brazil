@@ -46,7 +46,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
     func configure(movie: Movie, favorite: Bool) {
         setupViews()
         
-        posterImage.image = imageManager.posterImage(poster_path: movie.poster_path)
+        posterImage.image = imageManager.posterImage(poster_path: movie.posterPath)
         titleLabel.text = movie.title
         if favorite == true {
             favoriteImage.image = UIImage(named: "favorite_full_icon") as UIImage?

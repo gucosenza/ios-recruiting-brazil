@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<testsuites name='MovsUITests.xctest' tests='3' failures='0'>
+  <testsuite name='MovsTests.MovsTests' tests='2' failures='0'>
+    <testcase classname='MovsTests.MovsTests' name='testExample' time='0.005'/>
+    <testcase classname='MovsTests.MovsTests' name='testPerformanceExample' time='0.453'/>
+  </testsuite>
+  <testsuite name='MovsUITests.MovsUITests' tests='1' failures='0'>
+    <testcase classname='MovsUITests.MovsUITests' name='test_filterDontHaveMovieToShow' time='12.461'/>
+  </testsuite>
+</testsuites>

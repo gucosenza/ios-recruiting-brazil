@@ -30,15 +30,7 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
     
     init() {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize.height = 308
-        layout.itemSize.width = 185
-        layout.minimumInteritemSpacing = 10
-        layout.minimumLineSpacing = 10
         layout.scrollDirection = .vertical
-        layout.sectionInset.bottom = 15
-        layout.sectionInset.left = 15
-        layout.sectionInset.right = 15
-        layout.sectionInset.top = 15
         super.init(collectionViewLayout: layout)
     }
     
@@ -156,6 +148,23 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
                 self.navigationController?.pushViewController(detailController, animated: true)
             }
         }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        let border = ((self.view.bounds.width - (185*2)) / 3)
+        return UIEdgeInsets(top: 0, left: border, bottom: 0, right: border)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 185, height: 308)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return ((self.view.bounds.width - (185*2)) / 3)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return ((self.view.bounds.width - (185*2)) / 3)
     }
     
     func loadFavorites(){

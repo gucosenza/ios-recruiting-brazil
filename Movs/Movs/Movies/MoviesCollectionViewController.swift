@@ -55,6 +55,8 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search Movie"
+        searchController.searchBar.barTintColor = .black
+        UISearchBar.appearance().tintColor = UIColor.black
         navigationItem.searchController = searchController
         definesPresentationContext = true
         navigationItem.hidesSearchBarWhenScrolling = false
@@ -156,7 +158,7 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         let border = ((self.view.bounds.width - (185*2)) / 3)
-        return UIEdgeInsets(top: 0, left: border, bottom: 0, right: border)
+        return UIEdgeInsets(top: 10, left: border, bottom: 0, right: border)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

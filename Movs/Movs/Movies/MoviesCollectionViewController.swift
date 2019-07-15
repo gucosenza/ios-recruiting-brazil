@@ -73,13 +73,17 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
     
     func getMovieApi(){
         let spinnerView = UIView.init(frame: self.view.bounds)
+//        let spinnerView = UIView(frame: self.view.bounds)
         spinnerView.backgroundColor = UIColor.init(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
         let ai = UIActivityIndicatorView.init(style: .whiteLarge)
         ai.startAnimating()
-        ai.center = spinnerView.center
         
         spinnerView.addSubview(ai)
         self.view.addSubview(spinnerView)
+        
+        ai.translatesAutoresizingMaskIntoConstraints = false
+        ai.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        ai.centerYAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerYAnchor).isActive = true
         
         loadingMovies = true
         restManager.loadMovies(onComplete: { (moviesApi) in

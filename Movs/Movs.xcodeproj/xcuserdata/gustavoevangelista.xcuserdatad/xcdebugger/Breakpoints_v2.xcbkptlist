@@ -26,11 +26,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Movs/Movies/MoviesCollectionViewController.swift"
-            timestampString = "584674845.295718"
+            timestampString = "585192327.083595"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "217"
-            endingLineNumber = "217">
+            endingLineNumber = "217"
+            landmarkName = "MoviesCollectionViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

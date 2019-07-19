@@ -12,13 +12,6 @@ class MovieCollectionViewCell: UICollectionViewCell {
     
     var imageManager = ImageManager()
     
-    private lazy var viewCell: UIView = {
-        let view = UIView(frame: .zero)
-        view.backgroundColor = UIColor(named: "Color2")
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
     private lazy var posterImage: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -44,8 +37,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
     }()
 
     func configure(movie: Movie, favorite: Bool) {
-        setupViews()
-        
+        contentView.backgroundColor = UIColor(named: "Color2")
         posterImage.image = imageManager.posterImage(poster_path: movie.posterPath)
         titleLabel.text = movie.title
         if favorite == true {
@@ -53,15 +45,16 @@ class MovieCollectionViewCell: UICollectionViewCell {
         } else{
             favoriteImage.image = UIImage(named: "favorite_gray_icon") as UIImage?
         }
+        
+        setupViews()
     }
 }
 
 extension MovieCollectionViewCell: CodeView {
     func buildViewHierarchy() {
-        self.addSubview(viewCell)
-        self.viewCell.addSubview(posterImage)
-        self.viewCell.addSubview(titleLabel)
-        self.viewCell.addSubview(favoriteImage)
+        contentView.addSubview(posterImage)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(favoriteImage)
     }
     
     func setupConstraints() {
@@ -71,26 +64,24 @@ extension MovieCollectionViewCell: CodeView {
     }
     
     func posterConstraint(){
-        posterImage.centerXAnchor.constraint(equalTo: self.viewCell.centerXAnchor).isActive = true
         posterImage.heightAnchor.constraint(equalToConstant: 278).isActive = true
-        posterImage.widthAnchor.constraint(equalToConstant: 185).isActive = true
-        posterImage.topAnchor.constraint(equalTo: self.viewCell.topAnchor, constant: 0).isActive = true
-        posterImage.leadingAnchor.constraint(equalTo: self.viewCell.leadingAnchor, constant: 0).isActive = true //esquerda
-        posterImage.trailingAnchor.constraint(equalTo: self.viewCell.trailingAnchor, constant: 0).isActive = true //direita
+        posterImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0).isActive = true
+        posterImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0).isActive = true //esquerda
+        posterImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0).isActive = true //direita
     }
     func titleConstraint(){
         titleLabel.topAnchor.constraint(equalTo: posterImage.bottomAnchor, constant: 0).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: favoriteImage.leadingAnchor, constant: 0).isActive = true //direita
-        titleLabel.leadingAnchor.constraint(equalTo: self.viewCell.leadingAnchor, constant: 0).isActive = true //esquerda
-        titleLabel.bottomAnchor.constraint(equalTo: self.viewCell.bottomAnchor, constant: 0).isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0).isActive = true //esquerda
+        titleLabel.bottomAnchor.constraint(equalTo:contentView.bottomAnchor, constant: 0).isActive = true
     }
     func favoriteConstraint(){
         favoriteImage.heightAnchor.constraint(equalToConstant: 20).isActive = true
         favoriteImage.widthAnchor.constraint(equalToConstant: 20).isActive = true
-        favoriteImage.topAnchor.constraint(equalTo: posterImage.bottomAnchor, constant: 0).isActive = true
+        favoriteImage.topAnchor.constraint(equalTo: posterImage.bottomAnchor, constant: 5).isActive = true
         favoriteImage.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 0).isActive = true //esquerda
-        favoriteImage.trailingAnchor.constraint(equalTo: self.viewCell.trailingAnchor, constant: -5).isActive = true //direita
-        favoriteImage.bottomAnchor.constraint(equalTo: self.viewCell.bottomAnchor, constant: 0).isActive = true
+        favoriteImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5).isActive = true //direita
+//        favoriteImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0).isActive = true
     }
     
 }

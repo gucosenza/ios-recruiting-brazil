@@ -62,11 +62,13 @@ class FavoriteTableViewCell: UITableViewCell {
     }
     
     func prepare(with favorite:FavoritesCD) {
-        setupViews()
+        
         posterImage.image = imageManager.posterImage(poster_path: favorite.image!)
         titleLabel.text = favorite.name
         yearLabel.text = favorite.year
         overviewLabel.text = favorite.overview
+        
+        setupViews()
     }
 }
 

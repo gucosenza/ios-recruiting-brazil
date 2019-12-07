@@ -32,7 +32,7 @@ class FavoriteTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor(named: "Color2")
-        label.font = UIFont(name: "System", size: 17)
+        label.font = UIFont.systemFont(ofSize: 17)
         label.numberOfLines = 1
         return label
     }()
@@ -41,7 +41,7 @@ class FavoriteTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor(named: "Color2")
-        label.font = UIFont(name: "System", size: 14)
+        label.font = UIFont.systemFont(ofSize: 14)
         label.numberOfLines = 0
         return label
     }()

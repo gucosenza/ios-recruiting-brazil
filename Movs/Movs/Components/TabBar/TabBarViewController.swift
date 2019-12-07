@@ -12,6 +12,8 @@ class TabBarViewController: UITabBarController {
 
         let moviesCollectionViewController = MoviesCollectionViewController()
         moviesCollectionViewController.tabBarItem = UITabBarItem(title: "Movies", image: UIImage(named: "list_icon"), tag: 0)
+//        let movieViewController = MovieViewController()
+//        movieViewController.tabBarItem = UITabBarItem(title: "Movies", image: UIImage(named: "list_icon"), tag: 0)
         
         let favoritesTableViewController = FavoritesTableViewController()
         favoritesTableViewController.tabBarItem = UITabBarItem(title: "Favorites", image: UIImage(named: "favorite_empty_icon"), tag: 1)

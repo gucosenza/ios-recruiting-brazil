@@ -20,6 +20,8 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
     var totalMovies:Int = 0
     var loadingMovies = false
     
+    let spinner = SpinnerView()
+    
     init() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -66,18 +68,8 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
     }
     
     func getMovieApi(){
-        let spinnerView = UIView.init(frame: self.view.bounds)
-//        let spinnerView = UIView(frame: self.view.bounds)
-        spinnerView.backgroundColor = UIColor.init(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
-        let ai = UIActivityIndicatorView.init(style: .whiteLarge)
-        ai.startAnimating()
-        
-        spinnerView.addSubview(ai)
-        self.view.addSubview(spinnerView)
-        
-        ai.translatesAutoresizingMaskIntoConstraints = false
-        ai.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor).isActive = true
-        ai.centerYAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerYAnchor).isActive = true
+        self.view = self.collectionView
+        self.view = spinner.startSpinner(self.view.bounds)
         
         loadingMovies = true
         restManager.loadMovies(onComplete: { (moviesApi) in
@@ -88,13 +80,15 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
             self.page = self.page + 1
             
             DispatchQueue.main.async {
-                spinnerView.removeFromSuperview()
+                self.spinner.removeSpinner(spinner: self.view)
+                self.view = self.collectionView
                 self.collectionView.reloadData()
             }
         }, onError: { (error) in
-            print("Deu erro ao carregar os filmes")
+            print("Ocorreu um erro ao carregar os filmes")
             DispatchQueue.main.async {
-                spinnerView.removeFromSuperview()
+                self.spinner.removeSpinner(spinner: self.view)
+                self.view = self.collectionView
                 self.collectionView.backgroundView = self.errorRestLabel
             }
         }, page: page)

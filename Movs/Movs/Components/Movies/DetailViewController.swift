@@ -21,7 +21,7 @@ class DetailViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
-        label.font = UIFont(name: "System", size: 24)
+        label.font = UIFont.systemFont(ofSize: 24)
         label.numberOfLines = 0
         return label
     }()
@@ -37,7 +37,7 @@ class DetailViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
-        label.font = UIFont(name: "System", size: 24)
+        label.font = UIFont.systemFont(ofSize: 24)
         return label
     }()
     
@@ -45,7 +45,7 @@ class DetailViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
-        label.font = UIFont(name: "System", size: 24)
+        label.font = UIFont.systemFont(ofSize: 24)
         label.numberOfLines = 0
         return label
     }()

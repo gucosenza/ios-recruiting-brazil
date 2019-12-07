@@ -23,6 +23,8 @@
 		3975EFF822AB5961005BA3A1 /* ViewController+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3975EFF722AB5961005BA3A1 /* ViewController+CoreData.swift */; };
 		3975EFFB22AB6111005BA3A1 /* RestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3975EFEF22AB5583005BA3A1 /* RestManager.swift */; };
 		3975EFFC22AB6118005BA3A1 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3975EFF122AB55FF005BA3A1 /* ImageManager.swift */; };
+		7F375538239B5FCB00A704D0 /* MovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F375537239B5FCB00A704D0 /* MovieViewController.swift */; };
+		7F37553A239B650000A704D0 /* SpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F375539239B650000A704D0 /* SpinnerView.swift */; };
 		7F7A556222A6D962000F1F1A /* MoviesApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7A556122A6D962000F1F1A /* MoviesApi.swift */; };
 		7F7A556422A6D981000F1F1A /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7A556322A6D981000F1F1A /* Movie.swift */; };
 		7F7A556622A6D993000F1F1A /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7A556522A6D993000F1F1A /* Genre.swift */; };
@@ -71,6 +73,8 @@
 		3975EFF122AB55FF005BA3A1 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		3975EFF322AB5697005BA3A1 /* GenreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreManager.swift; sourceTree = "<group>"; };
 		3975EFF722AB5961005BA3A1 /* ViewController+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+CoreData.swift"; sourceTree = "<group>"; };
+		7F375537239B5FCB00A704D0 /* MovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewController.swift; sourceTree = "<group>"; };
+		7F375539239B650000A704D0 /* SpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerView.swift; sourceTree = "<group>"; };
 		7F7A556122A6D962000F1F1A /* MoviesApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesApi.swift; sourceTree = "<group>"; };
 		7F7A556322A6D981000F1F1A /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		7F7A556522A6D993000F1F1A /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
@@ -170,6 +174,7 @@
 		3975EFFE22ADC960005BA3A1 /* Movies */ = {
 			isa = PBXGroup;
 			children = (
+				7F375536239B5F4B00A704D0 /* View */,
 				391B1EA522A61B11009EFDFF /* MoviesCollectionViewController.swift */,
 				391B1EA922A61DFB009EFDFF /* MovieCollectionViewCell.swift */,
 				391B1EAB22A61E71009EFDFF /* DetailViewController.swift */,
@@ -256,6 +261,15 @@
 				3975EFEF22AB5583005BA3A1 /* RestManager.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		7F375536239B5F4B00A704D0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7F375537239B5FCB00A704D0 /* MovieViewController.swift */,
+				7F375539239B650000A704D0 /* SpinnerView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -394,6 +408,7 @@
 				3975EFF822AB5961005BA3A1 /* ViewController+CoreData.swift in Sources */,
 				391B1EA622A61B11009EFDFF /* MoviesCollectionViewController.swift in Sources */,
 				391B1E9E22A61387009EFDFF /* Config.swift in Sources */,
+				7F37553A239B650000A704D0 /* SpinnerView.swift in Sources */,
 				7F7A556622A6D993000F1F1A /* Genre.swift in Sources */,
 				7F7A556822A6D9A5000F1F1A /* GenresApi.swift in Sources */,
 				391B1EA822A61CBC009EFDFF /* FavoritesTableViewController.swift in Sources */,
@@ -401,6 +416,7 @@
 				3975EFFB22AB6111005BA3A1 /* RestManager.swift in Sources */,
 				7F7A556422A6D981000F1F1A /* Movie.swift in Sources */,
 				7F7A556A22A70FF5000F1F1A /* FavoriteTableViewCell.swift in Sources */,
+				7F375538239B5FCB00A704D0 /* MovieViewController.swift in Sources */,
 				391B1EAA22A61DFB009EFDFF /* MovieCollectionViewCell.swift in Sources */,
 				391B1E7522A61123009EFDFF /* Movs.xcdatamodeld in Sources */,
 				391B1E6D22A61123009EFDFF /* AppDelegate.swift in Sources */,

@@ -100,6 +100,7 @@ final class RestManager {
                     do{
                         let moviesApi = try JSONDecoder().decode(MoviesApi.self, from: data)
                         onComplete(moviesApi)
+                        print("Requisiçao movies feita!!")
                         
                     }catch {
                         print(error)

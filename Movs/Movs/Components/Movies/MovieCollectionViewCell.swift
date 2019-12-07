@@ -23,7 +23,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.textColor = UIColor(named: "Color1")
-        label.font = UIFont(name: "System", size: 17)
+        label.font = UIFont.systemFont(ofSize: 17)
         label.numberOfLines = 1
         return label
     }()

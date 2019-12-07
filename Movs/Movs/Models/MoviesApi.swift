@@ -1,11 +1,3 @@
-//
-//  MoviesApi.swift
-//  Movs
-//
-//  Created by gustavo.cosenza on 04/06/19.
-//  Copyright © 2019 Gustavo. All rights reserved.
-//
-
 import Foundation
 
 struct MoviesApi: Decodable {
@@ -21,8 +13,3 @@ struct MoviesApi: Decodable {
         case results
     }
 }
-//
-//let page, totalResults, totalPages: Int
-//let results: [Result]
-//
-//

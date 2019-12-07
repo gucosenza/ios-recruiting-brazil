@@ -1,11 +1,3 @@
-//
-//  Movie.swift
-//  Movs
-//
-//  Created by gustavo.cosenza on 04/06/19.
-//  Copyright © 2019 Gustavo. All rights reserved.
-//
-
 import Foundation
 
 struct Movie: Decodable {
@@ -36,5 +28,5 @@ struct Movie: Decodable {
         case backdropPath = "backdrop_path"
         case adult, overview
         case releaseDate = "release_date"
-}
+    }
 }

@@ -127,19 +127,15 @@
 		391B1E6B22A61123009EFDFF /* Movs */ = {
 			isa = PBXGroup;
 			children = (
-				3975F00122ADCAE3005BA3A1 /* TabBar */,
-				3975F00022ADCA4B005BA3A1 /* Models */,
-				3975EFFF22ADC987005BA3A1 /* Enviroment */,
-				3975EFFE22ADC960005BA3A1 /* Movies */,
-				3975EFFD22ADC88F005BA3A1 /* Favorites */,
-				391B1E6C22A61123009EFDFF /* AppDelegate.swift */,
-				3975EFF722AB5961005BA3A1 /* ViewController+CoreData.swift */,
-				3975EFEF22AB5583005BA3A1 /* RestManager.swift */,
+				7F375533239B4C4F00A704D0 /* Application */,
+				7F375535239B4D6F00A704D0 /* Common */,
+				7F375531239B4B6B00A704D0 /* Components */,
+				7F375534239B4C7300A704D0 /* Config */,
 				391B1E7B22A61125009EFDFF /* Info.plist */,
-				7F8E2B5F22CAB16500E5230E /* CodeView.swift */,
-				3975EFF122AB55FF005BA3A1 /* ImageManager.swift */,
-				3975EFF322AB5697005BA3A1 /* GenreManager.swift */,
 				391B1E7822A61125009EFDFF /* LaunchScreen.storyboard */,
+				3975F00022ADCA4B005BA3A1 /* Models */,
+				7F375530239B4B4400A704D0 /* Protocols */,
+				7F375532239B4C2B00A704D0 /* Resources */,
 			);
 			path = Movs;
 			sourceTree = "<group>";
@@ -181,14 +177,13 @@
 			path = Movies;
 			sourceTree = "<group>";
 		};
-		3975EFFF22ADC987005BA3A1 /* Enviroment */ = {
+		3975EFFF22ADC987005BA3A1 /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
-				391B1E7622A61125009EFDFF /* Assets.xcassets */,
+				3975EFF722AB5961005BA3A1 /* ViewController+CoreData.swift */,
 				391B1E7322A61123009EFDFF /* Movs.xcdatamodeld */,
-				391B1E9D22A61387009EFDFF /* Config.swift */,
 			);
-			path = Enviroment;
+			path = "Core Data";
 			sourceTree = "<group>";
 		};
 		3975F00022ADCA4B005BA3A1 /* Models */ = {
@@ -208,6 +203,59 @@
 				391B1E9F22A61688009EFDFF /* TabBarViewController.swift */,
 			);
 			path = TabBar;
+			sourceTree = "<group>";
+		};
+		7F375530239B4B4400A704D0 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				7F8E2B5F22CAB16500E5230E /* CodeView.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		7F375531239B4B6B00A704D0 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				3975EFFF22ADC987005BA3A1 /* Core Data */,
+				3975EFFD22ADC88F005BA3A1 /* Favorites */,
+				3975EFFE22ADC960005BA3A1 /* Movies */,
+				3975F00122ADCAE3005BA3A1 /* TabBar */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		7F375532239B4C2B00A704D0 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				391B1E7622A61125009EFDFF /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		7F375533239B4C4F00A704D0 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				391B1E6C22A61123009EFDFF /* AppDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		7F375534239B4C7300A704D0 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				391B1E9D22A61387009EFDFF /* Config.swift */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		7F375535239B4D6F00A704D0 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				3975EFF122AB55FF005BA3A1 /* ImageManager.swift */,
+				3975EFF322AB5697005BA3A1 /* GenreManager.swift */,
+				3975EFEF22AB5583005BA3A1 /* RestManager.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

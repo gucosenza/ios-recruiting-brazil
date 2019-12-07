@@ -1,10 +1,3 @@
-//
-//  UITabBarViewController.swift
-//  Movs
-//
-//  Created by Gustavo Evangelista on 04/06/2019.
-//  Copyright © 2019 Gustavo. All rights reserved.
-//
 
 import UIKit
 
@@ -13,7 +6,6 @@ class TabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        tabBar.backgroundColor = UIColor(named: "Color1")
         tabBar.isTranslucent = false
         tabBar.tintColor = .black
         tabBar.barTintColor = UIColor(named: "Color1")

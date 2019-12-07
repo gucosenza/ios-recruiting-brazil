@@ -1,10 +1,4 @@
-//
-//  ImageManager.swift
-//  MovsTests
-//
-//  Created by Gustavo Evangelista on 07/06/2019.
-//  Copyright © 2019 Gustavo. All rights reserved.
-//
+
 
 import UIKit
 

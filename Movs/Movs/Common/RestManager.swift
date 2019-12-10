@@ -26,7 +26,6 @@ final class RestManager {
     
     private static let configuration: URLSessionConfiguration = {
         let config = URLSessionConfiguration.default
-        config.allowsCellularAccess = false
         config.httpAdditionalHeaders = ["content-type":"application/json;charset=utf-8"]
         config.timeoutIntervalForRequest = 30.0
         config.httpMaximumConnectionsPerHost = 5

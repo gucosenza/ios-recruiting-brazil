@@ -31,5 +31,8 @@ extension SpinnerView: CodeView{
         ai.centerYAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerYAnchor).isActive = true
     }
     
-    
+//     func setupAdditionalConfiguration() {
+//        self.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+//    }
+     
 }

@@ -8,3 +8,12 @@ extension UIViewController{
         return appDelegate.persistentContainer.viewContext
     }
 }
+
+extension UITableViewDataSource{
+    var context: NSManagedObjectContext{
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        return appDelegate.persistentContainer.viewContext
+    }
+}
+
+

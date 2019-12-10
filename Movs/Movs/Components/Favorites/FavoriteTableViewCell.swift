@@ -3,7 +3,7 @@ import UIKit
 
 class FavoriteTableViewCell: UITableViewCell {
     
-    var imageManager = ImageManager()
+    let imageManager = ImageManager()
     
     private lazy var viewCell: UIView = {
         let view = UIView(frame: .zero)

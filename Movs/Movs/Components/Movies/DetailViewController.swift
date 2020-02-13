@@ -81,7 +81,7 @@ class DetailViewController: UIViewController {
         } else {
             favoriteButton.setBackgroundImage(UIImage(named: "favorite_empty_icon") as UIImage?, for: .normal)
         }
-        yearLabel.text = String(movie.releaseDate.dropLast(6))
+        yearLabel.text = movie.releaseDate.onlyYear
         genreLabel.text = genreManager.getGenres(ids: movie.genreIDS)
         overviewTextView.text = movie.overview
         

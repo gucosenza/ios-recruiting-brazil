@@ -35,6 +35,10 @@
 		7F7A556822A6D9A5000F1F1A /* GenresApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7A556722A6D9A5000F1F1A /* GenresApi.swift */; };
 		7F7A556A22A70FF5000F1F1A /* FavoriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7A556922A70FF4000F1F1A /* FavoriteTableViewCell.swift */; };
 		7F8E2B6022CAB16500E5230E /* CodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F8E2B5F22CAB16500E5230E /* CodeView.swift */; };
+		7FA82F2624A0524C0052A5A9 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA82F2524A0524C0052A5A9 /* NetworkError.swift */; };
+		7FA82F2824A052F30052A5A9 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA82F2724A052F30052A5A9 /* Network.swift */; };
+		7FA82F3024A151850052A5A9 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA82F2F24A151850052A5A9 /* DetailView.swift */; };
+		7FA82F3224A156E40052A5A9 /* DetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA82F3124A156E40052A5A9 /* DetailModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +93,10 @@
 		7F7A556722A6D9A5000F1F1A /* GenresApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresApi.swift; sourceTree = "<group>"; };
 		7F7A556922A70FF4000F1F1A /* FavoriteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewCell.swift; sourceTree = "<group>"; };
 		7F8E2B5F22CAB16500E5230E /* CodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeView.swift; sourceTree = "<group>"; };
+		7FA82F2524A0524C0052A5A9 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		7FA82F2724A052F30052A5A9 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		7FA82F2F24A151850052A5A9 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		7FA82F3124A156E40052A5A9 /* DetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +198,8 @@
 				391B1EA522A61B11009EFDFF /* MoviesCollectionViewController.swift */,
 				391B1EA922A61DFB009EFDFF /* MovieCollectionViewCell.swift */,
 				391B1EAB22A61E71009EFDFF /* DetailViewController.swift */,
+				7FA82F2F24A151850052A5A9 /* DetailView.swift */,
+				7FA82F3124A156E40052A5A9 /* DetailModel.swift */,
 			);
 			path = Movies;
 			sourceTree = "<group>";
@@ -210,6 +220,8 @@
 				7F7A556322A6D981000F1F1A /* Movie.swift */,
 				7F7A556522A6D993000F1F1A /* Genre.swift */,
 				7F7A556722A6D9A5000F1F1A /* GenresApi.swift */,
+				7FA82F2524A0524C0052A5A9 /* NetworkError.swift */,
+				7FA82F2724A052F30052A5A9 /* Network.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -422,6 +434,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7FA82F2824A052F30052A5A9 /* Network.swift in Sources */,
 				391B1EA022A61688009EFDFF /* TabBarViewController.swift in Sources */,
 				3975EFFC22AB6118005BA3A1 /* ImageManager.swift in Sources */,
 				3975EFF422AB5697005BA3A1 /* GenreManager.swift in Sources */,
@@ -437,10 +450,13 @@
 				3975EFFB22AB6111005BA3A1 /* RestManager.swift in Sources */,
 				7F7A556422A6D981000F1F1A /* Movie.swift in Sources */,
 				7F7A556A22A70FF5000F1F1A /* FavoriteTableViewCell.swift in Sources */,
+				7FA82F3224A156E40052A5A9 /* DetailModel.swift in Sources */,
 				7F35A545239F4DC600371A9D /* FavoriteDataSource.swift in Sources */,
 				7F266BDA23AEAFBE00F690BD /* String+Extension.swift in Sources */,
 				7F375538239B5FCB00A704D0 /* MovieViewController.swift in Sources */,
+				7FA82F3024A151850052A5A9 /* DetailView.swift in Sources */,
 				391B1EAA22A61DFB009EFDFF /* MovieCollectionViewCell.swift in Sources */,
+				7FA82F2624A0524C0052A5A9 /* NetworkError.swift in Sources */,
 				7F35A53E239F1DBD00371A9D /* FavoritesViewController.swift in Sources */,
 				391B1E7522A61123009EFDFF /* Movs.xcdatamodeld in Sources */,
 				391B1E6D22A61123009EFDFF /* AppDelegate.swift in Sources */,

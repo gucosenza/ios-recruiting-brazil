@@ -2,39 +2,18 @@
 
 import Foundation
 
-enum RestError {
-    case url
-    case taskError (error: Error)
-    case noResponse
-    case noData
-    case responseStatusCode(code: Int)
-    case invalidJson
-}
-
 final class RestManager {
     
     static let shared = RestManager()
     
-    private init(){
-        
-    }
+    private let network = Network()
     
     var dictionaryGenres = [Int: String]()
     
     private let basePath = Config.basePath
     private let apiKey = Config.apiKey
     
-    private static let configuration: URLSessionConfiguration = {
-        let config = URLSessionConfiguration.default
-        config.httpAdditionalHeaders = ["content-type":"application/json;charset=utf-8"]
-        config.timeoutIntervalForRequest = 30.0
-        config.httpMaximumConnectionsPerHost = 5
-        return config
-    }()
-    
-    let session = URLSession(configuration: configuration)
-    
-    func loadGenre(onComplete: @escaping (Dictionary<Int, String>) -> Void, onError: @escaping (RestError) -> Void) {
+    func loadGenre(onComplete: @escaping (Dictionary<Int, String>) -> Void, onError: @escaping (NetworkError) -> Void) {
         
         let urlGenres = basePath + "/genre/movie/list?language=en-US&api_key=" + apiKey
         guard let url = URL(string: urlGenres ) else {
@@ -42,77 +21,40 @@ final class RestManager {
             return
         }
         
-        //monta a requisicao
-        let dataTask = session.dataTask(with: url) { (data: Data?, response: URLResponse?, error: Error?) in
-            // se nao tiver erro no aplicativo para fazer requisicao
-            if error == nil {
-                guard let response = response as? HTTPURLResponse else {
-                    onError(.noResponse)
-                    return
-                }
-                // se o status da requisicao deu certo (200)
-                if response.statusCode == 200 {
-                    guard let data = data else {return}
-                    do{
-                        let genresApi = try JSONDecoder().decode(GenresApi.self, from: data)
-                        
-                        for genre in genresApi.genres {
-                            self.dictionaryGenres[genre.id] = genre.name
-                        }
-                        
-                        onComplete(self.dictionaryGenres)
-                        
-                    }catch {
-                        onError(.invalidJson)
-                    }
-                }else {
-                    onError(.responseStatusCode(code: response.statusCode))
-                }
-            }else {
-                onError(.taskError(error: error!))
-            }
+        network.loadRest(url: url) { (data, error) in
+               guard let data = data else {return}
+               do{
+                   let genresApi = try JSONDecoder().decode(GenresApi.self, from: data)
+                   for genre in genresApi.genres {
+                       self.dictionaryGenres[genre.id] = genre.name
+                   }
+                   onComplete(self.dictionaryGenres)
+               }catch {
+                   onError(.invalidJson)
+               }
         }
-        //executa a requisicao
-        dataTask.resume()
     }
     
-    func loadMovies(onComplete: @escaping (MoviesApi) -> Void, onError: @escaping (RestError) -> Void, page: Int) {
+    func loadMovies(onComplete: @escaping (MoviesApi) -> Void, onError: @escaping (NetworkError) -> Void, page: Int) {
         
         let urlMovies = basePath + "/movie/popular?page=" + String(page) + "&language=en-US&api_key=" + apiKey
-        
         guard let url = URL(string: urlMovies ) else {
             onError(.url)
             return
         }
         print("url: " + urlMovies)
-        //monta a requisicao
-        let dataTask = session.dataTask(with: url) { (data: Data?, response: URLResponse?, error: Error?) in
-            // se nao tiver erro no aplicativo para fazer requisicao
-            if error == nil {
-                guard let response = response as? HTTPURLResponse else {
-                    onError(.noResponse)
-                    return
-                }
-                // se o status da requisicao deu certo (200)
-                if response.statusCode == 200 {
-                    guard let data = data else {return}
-                    do{
-                        let moviesApi = try JSONDecoder().decode(MoviesApi.self, from: data)
-                        onComplete(moviesApi)
-                        print("Requisiçao movies feita!!")
-                        
-                    }catch {
-                        print(error)
-                        onError(.invalidJson)
-                    }
-                }else {
-                    onError(.responseStatusCode(code: response.statusCode))
-                }
-            }else {
-                onError(.taskError(error: error!))
-            }
+        
+        network.loadRest(url: url) { (data, error) in
+            guard let data = data else {return}
+               do{
+                   let moviesApi = try JSONDecoder().decode(MoviesApi.self, from: data)
+                   onComplete(moviesApi)
+                   print("Requisiçao movies feita!!")
+
+               }catch {
+                   print(error)
+                    onError(.invalidJson)
+               }
         }
-        //executa a requisicao
-        dataTask.resume()
     }
 }

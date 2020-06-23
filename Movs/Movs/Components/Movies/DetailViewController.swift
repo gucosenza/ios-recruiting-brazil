@@ -2,7 +2,7 @@
 import UIKit
 import CoreData
 
-class DetailViewController: UIViewController {
+final class DetailViewController: UIViewController {
     
     var movie: Movie!
     var favorite: FavoritesCD!
@@ -27,6 +27,7 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupViews()
         detailView.configure(movie: movie, isFavorite: isFavorite, genreLabel: genreManager.getGenres(ids: movie.genreIDS))
     }
 }
@@ -52,12 +53,13 @@ extension DetailViewController: CodeView {
 }
 
 protocol DetailViewDelegate: class {
-    func buttonClicked(sender: UIButton)
+    func didFavorite()
 }
 
 extension DetailViewController: DetailViewDelegate{
     
-    @objc func buttonClicked(sender : UIButton){
+    func didFavorite(){
+        print("cheguei")
         if !isFavorite {
             if favorite == nil {
                 favorite = FavoritesCD(context: context)
@@ -69,8 +71,12 @@ extension DetailViewController: DetailViewDelegate{
             favorite.year = String(movie.releaseDate.dropLast(6))
             do {
                 try context.save()
-                let image = UIImage(named: "favorite_full_icon") as UIImage?
-//                favoriteButton.setBackgroundImage(image, for: .normal)
+//                let image = UIImage(named: "favorite_full_icon") as UIImage?
+////                favoriteButton.setBackgroundImage(image, for: .normal)
+                DispatchQueue.main.async {
+//                    self.collectionView.reloadData()
+                    self.reloadInputViews()
+                }
             } catch {
                 print(error.localizedDescription)
             }

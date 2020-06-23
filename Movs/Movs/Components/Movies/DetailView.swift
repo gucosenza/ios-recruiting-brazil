@@ -28,9 +28,14 @@ class DetailView: UIView {
         private lazy var favoriteButton: UIButton = {
             let button = UIButton(type: .system)
             button.translatesAutoresizingMaskIntoConstraints = false
-//            button.addTarget(self, action: #selector(delegate?.buttonClicked), for: .touchUpInside)
+            button.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
             return button
         }()
+    
+    @objc func buttonClicked(){
+        print("aqui")
+        delegate?.didFavorite()
+    }
         
         private lazy var yearLabel: UILabel = {
             let label = UILabel()
@@ -83,7 +88,7 @@ class DetailView: UIView {
         yearLabel.text = movie.releaseDate.onlyYear
         overviewTextView.text = movie.overview
     }
-    }
+}
 
     extension DetailView: CodeView {
         func buildViewHierarchy() {

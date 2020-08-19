@@ -7,7 +7,7 @@ class DetailView: UIView {
     var imageManager = ImageManager()
     var isFavorite: Bool!
     
-    weak var delegate: DetailViewDelegate?
+//    var delegateButton = DetailViewController()
         
         private lazy var backdrop: UIImageView = {
             let image = UIImageView()
@@ -34,7 +34,7 @@ class DetailView: UIView {
     
     @objc func buttonClicked(){
         print("aqui")
-        delegate?.didFavorite()
+//        delegateButton.didFavorite()
     }
         
         private lazy var yearLabel: UILabel = {

@@ -159,6 +159,13 @@ class MoviesCollectionViewController: UICollectionViewController, UICollectionVi
         return ((self.view.bounds.width - (185*2)) / 3)
     }
     
+    
+    
+    
+    
+    
+    
+    
     func loadFavorites(){
         let fetchRequest: NSFetchRequest<FavoritesCD> = FavoritesCD.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)

@@ -71,11 +71,3 @@ extension FavoritesViewController: NSFetchedResultsControllerDelegate {
     }
 }
 
-
-
-
-
-
-
-
-
